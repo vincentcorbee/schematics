@@ -1,0 +1,1 @@
+{"version":3,"file":"chain.js","sourceRoot":"","sources":["../../src/rules/chain.ts"],"names":[],"mappings":";;;AAEA,SAAgB,KAAK,CAAC,KAAa;IACjC,OAAO,UAAS,IAAU,EAAE,OAAyB;QACnD,OAAO,KAAK,CAAC,MAAM,CAAC,CAAC,GAAG,EAAE,IAAI,EAAE,EAAE,CAAC,IAAI,CAAC,GAAG,EAAE,OAAO,CAAC,EAAG,IAAI,CAAC,CAAA;IAC/D,CAAC,CAAA;AACH,CAAC;AAJD,sBAIC"}

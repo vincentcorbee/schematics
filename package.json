@@ -1,0 +1,28 @@
+{
+  "name": "@digitalbranch/schematics",
+  "version": "1.0.0",
+  "description": "Schematics",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "bin": {
+    "schematics": "./dist/cli/schematics.js"
+  },
+  "main": "./dist/index.js",
+  "keywords": [],
+  "author": "V.J.M. Corbee",
+  "license": "ISC",
+  "engines": {
+    "node": "18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@digitalbranch/get-args": "link:../getArgs",
+    "@digitalbranch/styler": "link:../styler"
+  }
+}
