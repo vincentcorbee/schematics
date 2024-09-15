@@ -1,9 +1,19 @@
 import { HostTree } from "../tree/host-tree"
 
-export type SchematicContext = {
-  dryRun: boolean,
-  debug: boolean
-} & Record<string, any>
+export interface SchematicTaskInterface {
+  run(): Promise<void> | void
+}
+
+export type SchematicTask = SchematicTaskInterface
+
+export interface SchematicContextInterface {
+  readonly dryRun: boolean,
+  readonly debug: boolean
+
+  addTask(task: SchematicTask): void
+}
+
+export type SchematicContext = SchematicContextInterface
 
 export type Schematic = {
   description: string,
@@ -57,10 +67,11 @@ export interface TreeInterface {
 
   file(path: string): FileEntry | undefined
   visit(visitor: FileVisitor): void
-  create(path: string, contents: Buffer | string): FileEntry
+  createFile(path: string, contents: Buffer | string): FileEntry
   overwrite(path: string, contents: Buffer | string): FileEntry
   read(path: string): Buffer
   readText(path: string): string
+  readJSON<T = any>(path: string): T
 }
 
 export interface DirEntryInterface {
@@ -81,8 +92,11 @@ export interface FileEntryInterface {
   readonly parent: DirEntry
   readonly path: string
   readonly contents: Buffer
+  readonly modified: boolean
 
-  readFile(): string
+  read(): Buffer
+  readText(): string
+  readJSON<T = any>(path: string): T
 }
 
 export type SchematicError<T> = {

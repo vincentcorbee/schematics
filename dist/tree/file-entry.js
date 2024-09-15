@@ -13,8 +13,14 @@ class FileEntry {
         this.parent = parent;
         this.modified = modified;
     }
-    readFile() {
-        return this.contents.toString();
+    read() {
+        return this.contents;
+    }
+    readText() {
+        return this.contents.toString('utf-8');
+    }
+    readJSON() {
+        return JSON.parse(this.readText());
     }
 }
 exports.FileEntry = FileEntry;

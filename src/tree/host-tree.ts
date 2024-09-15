@@ -11,14 +11,14 @@ export class HostTree {
   {
     const { root } = parsePath(rootPath)
 
-    this.root = new HostDirEntry(root, null) //createHostDir(this.rootPath)
+    this.root = new HostDirEntry(root, null)
   }
 
   file(path: string): HostFileEntry | undefined
   {
-    const entry = this.root.file(resolvePath(this.rootPath, path))
+    const file = this.root.file(resolvePath(this.rootPath, path))
 
-    if (entry) return entry;
+    if (file) return file;
 
     return createEntryFromDisk(resolvePath(this.rootPath, path), this.root)
   }

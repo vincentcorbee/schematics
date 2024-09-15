@@ -10,11 +10,17 @@ class HostFileEntry {
         this.path = path;
         this.parent = parent;
     }
-    get contents() {
+    write(contents) {
+        (0, fs_1.writeFileSync)(this.path, contents);
+    }
+    read() {
         return (0, fs_1.readFileSync)(this.path);
     }
-    set contents(contents) {
-        (0, fs_1.writeFileSync)(this.path, contents);
+    readText() {
+        return (0, fs_1.readFileSync)(this.path, { encoding: 'utf-8' });
+    }
+    readJSON() {
+        return JSON.parse((0, fs_1.readFileSync)(this.path, { encoding: 'utf-8' }));
     }
 }
 exports.HostFileEntry = HostFileEntry;

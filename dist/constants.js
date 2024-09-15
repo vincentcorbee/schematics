@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.strings = exports.regExpFilePlaceholders = exports.regExpTemplate = exports.rootDir = void 0;
-const rootDir = () => process.cwd();
-exports.rootDir = rootDir;
+exports.strings = exports.regExpFilePlaceholders = exports.regExpTemplate = exports.cwd = void 0;
+const cwd = () => process.cwd();
+exports.cwd = cwd;
 exports.regExpTemplate = /<%= *(.*?) *%>|(?:<% *([a-z]+) *\((.*?)\) *{ *%>([\s\S]*?)<% *} *%>)/g;
 exports.regExpFilePlaceholders = /__(.*?)__/g;
 exports.strings = {

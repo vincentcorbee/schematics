@@ -8,7 +8,7 @@ export function move(path: string): Rule
     const rootDir = tree.root.path
     const newTree = new Tree(context, new DirEntry(path, null))
 
-    tree.visit(entry => newTree.create(entry.path.replace(rootDir, path), entry.contents))
+    tree.visit(entry => newTree.createFile(entry.path.replace(rootDir, path), entry.contents))
 
     return newTree
   } as unknown as Rule

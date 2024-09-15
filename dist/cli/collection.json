@@ -1,0 +1,8 @@
+{
+  "schematics": {
+    "blank": {
+      "factory": "./blank/index#blank",
+      "description": "Create an empty schematic project or add a blank schematic to the current project."
+    }
+  }
+}

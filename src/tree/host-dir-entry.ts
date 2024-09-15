@@ -60,6 +60,6 @@ export class HostDirEntry {
 
     if (entry.type === 'dir') throw Error('NOT_A_FILE');
 
-    return entry.contents.toString()
+    return entry.readText()
   }
 }

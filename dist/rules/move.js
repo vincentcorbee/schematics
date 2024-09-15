@@ -6,7 +6,7 @@ function move(path) {
     return function (tree, context) {
         const rootDir = tree.root.path;
         const newTree = new tree_1.Tree(context, new tree_1.DirEntry(path, null));
-        tree.visit(entry => newTree.create(entry.path.replace(rootDir, path), entry.contents));
+        tree.visit(entry => newTree.createFile(entry.path.replace(rootDir, path), entry.contents));
         return newTree;
     };
 }

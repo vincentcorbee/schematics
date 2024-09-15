@@ -7,6 +7,8 @@ export declare class FileEntry implements FileEntryInterface {
     modified: boolean;
     readonly type = "file";
     constructor(path: string, contents: Buffer, parent: DirEntry, modified: boolean);
-    readFile(): string;
+    read(): Buffer;
+    readText(): string;
+    readJSON<T = any>(): T;
 }
 //# sourceMappingURL=file-entry.d.ts.map

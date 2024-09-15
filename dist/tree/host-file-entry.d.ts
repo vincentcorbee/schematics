@@ -5,7 +5,9 @@ export declare class HostFileEntry {
     readonly parent: HostDirEntry;
     readonly type = "file";
     constructor(path: string, parent: HostDirEntry);
-    get contents(): Buffer;
-    set contents(contents: Buffer);
+    write(contents: Buffer): void;
+    read(): Buffer;
+    readText(): string;
+    readJSON(): string;
 }
 //# sourceMappingURL=host-file-entry.d.ts.map

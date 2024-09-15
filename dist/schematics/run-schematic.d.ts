@@ -8,6 +8,6 @@ type RunSchematicContext = {
     collection: Collection;
     workspace: Workspace;
 };
-export declare function runSchematic(schematic: Rule, { factoryRoot, dryRun, debug, workspace }: RunSchematicContext): void;
+export declare function runSchematic(schematic: Rule, { factoryRoot, dryRun, debug, workspace }: RunSchematicContext): Promise<void>;
 export {};
 //# sourceMappingURL=run-schematic.d.ts.map

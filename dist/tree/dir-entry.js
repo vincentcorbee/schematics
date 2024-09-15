@@ -42,18 +42,11 @@ class DirEntry {
             }
         }
     }
-    // dir(path: string): DirEntry | undefined {
-    //   const segments = getPathSegments(path)
-    //   for (let i = 0, l = segments.length; i < l; i++) {
-    //     const entry = this.entries.get(segments.slice(0, l - i).join(seperator))
-    //     if (entry?.type === 'dir') return entry.dir(path)
-    //   }
-    // }
     readFile(path) {
         const entry = this.file(path);
         if (!entry)
             throw Error('NOT_FOUND');
-        return entry.readFile();
+        return entry.readText();
     }
     rename(from, to) {
         const entry = this.file(from);

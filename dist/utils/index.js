@@ -13,12 +13,12 @@ function applyModifiers(source, seperator, context) {
 }
 exports.applyModifiers = applyModifiers;
 let i = 0;
-function resolveFilePath(path, root = (0, constants_1.rootDir)()) {
+function resolveFilePath(path, root = (0, constants_1.cwd)()) {
     if ((0, fs_1.existsSync)(path))
         return path;
     if ((0, fs_1.dirname)(path) === (0, fs_1.dirname)(root))
-        throw new exception_1.SchematicNotFoundException({ message: 'File not found', code: 'NOT_FOUND' });
-    return resolveFilePath((0, fs_1.joinPath)((0, fs_1.resolvePath)((0, fs_1.dirname)(path), '../'), (0, fs_1.basename)(path)));
+        throw new exception_1.SchematicNotFoundException({ message: `${path.split('/').pop()} not found`, code: 'NOT_FOUND' });
+    return resolveFilePath((0, fs_1.joinPath)((0, fs_1.resolvePath)((0, fs_1.dirname)(path), '../'), (0, fs_1.basename)(path)), root);
 }
 exports.resolveFilePath = resolveFilePath;
 //# sourceMappingURL=index.js.map

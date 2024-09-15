@@ -6,13 +6,23 @@ export class HostFileEntry {
 
   constructor(public readonly path: string, public readonly parent: HostDirEntry) {}
 
-  get contents(): Buffer
+  write(contents: Buffer): void
+  {
+    writeFileSync(this.path, contents)
+  }
+
+  read(): Buffer
   {
     return readFileSync(this.path)
   }
 
-  set contents(contents: Buffer)
+  readText(): string
   {
-    writeFileSync(this.path, contents)
+    return readFileSync(this.path, {encoding: 'utf-8'})
+  }
+
+  readJSON(): string
+  {
+    return JSON.parse(readFileSync(this.path, { encoding: 'utf-8' }))
   }
 }

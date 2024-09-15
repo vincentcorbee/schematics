@@ -12,12 +12,12 @@ class HostTree {
         this.context = context;
         this.rootPath = rootPath;
         const { root } = (0, fs_1.parsePath)(rootPath);
-        this.root = new host_dir_entry_1.HostDirEntry(root, null); //createHostDir(this.rootPath)
+        this.root = new host_dir_entry_1.HostDirEntry(root, null);
     }
     file(path) {
-        const entry = this.root.file((0, fs_1.resolvePath)(this.rootPath, path));
-        if (entry)
-            return entry;
+        const file = this.root.file((0, fs_1.resolvePath)(this.rootPath, path));
+        if (file)
+            return file;
         return (0, helpers_1.createEntryFromDisk)((0, fs_1.resolvePath)(this.rootPath, path), this.root);
     }
 }

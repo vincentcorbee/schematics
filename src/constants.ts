@@ -1,4 +1,4 @@
-export const rootDir = () => process.cwd() as string
+export const cwd = () => process.cwd()
 
 export const regExpTemplate = /<%= *(.*?) *%>|(?:<% *([a-z]+) *\((.*?)\) *{ *%>([\s\S]*?)<% *} *%>)/g
 

@@ -1,7 +1,7 @@
 import { FileVisitor, Visitor } from "../../types";
-import { existsSync, joinPath, readFileSync, readdirSync, resolvePath, seperator, parsePath } from "../../fs";
+import { joinPath, readFileSync, readdirSync, resolvePath, seperator, parsePath } from "../../fs";
 import { HostDirEntry } from "../host-dir-entry";
-import { rootDir } from "../../constants";
+import { cwd } from "../../constants";
 import { DirEntry } from "../dir-entry";
 import { HostFileEntry } from "../host-file-entry";
 
@@ -32,24 +32,6 @@ export function traverseDir(dir: DirEntry, visitor: Visitor): void
     }
   })
 }
-
-// export function createHostDir(path: string, parent?: HostDirEntry): HostDirEntry {
-//   const resolvedPath = resolvePath(rootDir(), path)
-
-//   const dir = readdirSync(resolvedPath, { withFileTypes: true })
-
-//   const dirEntry = new HostDirEntry(joinPath(path), parent ?? null)
-
-//   for (const entry of dir) {
-//     if (entry.isFile())
-//       dirEntry.addFile(joinPath(path, entry.name))
-
-//     if(entry.isDirectory())
-//       dirEntry.addDir(createHostDir(joinPath(path, entry.name), dirEntry))
-//   }
-
-//   return dirEntry
-// }
 
 export function createEntryFromDisk(path: string, parent: HostDirEntry): HostFileEntry
 {
@@ -86,10 +68,8 @@ export function createEntryFromDisk(path: string, parent: HostDirEntry): HostFil
 
 export function createDir(path: string, parent?: DirEntry): DirEntry
 {
-  const resolvedPath = resolvePath(rootDir(), path)
-
+  const resolvedPath = resolvePath(cwd(), path)
   const dir = readdirSync(resolvedPath, { withFileTypes: true })
-
   const dirEntry = new DirEntry(joinPath(path), parent ?? null)
 
   for (const entry of dir) {

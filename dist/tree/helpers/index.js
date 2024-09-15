@@ -31,18 +31,6 @@ function traverseDir(dir, visitor) {
     });
 }
 exports.traverseDir = traverseDir;
-// export function createHostDir(path: string, parent?: HostDirEntry): HostDirEntry {
-//   const resolvedPath = resolvePath(rootDir(), path)
-//   const dir = readdirSync(resolvedPath, { withFileTypes: true })
-//   const dirEntry = new HostDirEntry(joinPath(path), parent ?? null)
-//   for (const entry of dir) {
-//     if (entry.isFile())
-//       dirEntry.addFile(joinPath(path, entry.name))
-//     if(entry.isDirectory())
-//       dirEntry.addDir(createHostDir(joinPath(path, entry.name), dirEntry))
-//   }
-//   return dirEntry
-// }
 function createEntryFromDisk(path, parent) {
     const { dir: dirName, base } = (0, fs_1.parsePath)(path);
     const entry = (0, fs_1.readdirSync)(dirName, { withFileTypes: true }).find(e => e.name === base);
@@ -67,7 +55,7 @@ function createEntryFromDisk(path, parent) {
 }
 exports.createEntryFromDisk = createEntryFromDisk;
 function createDir(path, parent) {
-    const resolvedPath = (0, fs_1.resolvePath)((0, constants_1.rootDir)(), path);
+    const resolvedPath = (0, fs_1.resolvePath)((0, constants_1.cwd)(), path);
     const dir = (0, fs_1.readdirSync)(resolvedPath, { withFileTypes: true });
     const dirEntry = new dir_entry_1.DirEntry((0, fs_1.joinPath)(path), parent ?? null);
     for (const entry of dir) {

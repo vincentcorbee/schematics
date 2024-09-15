@@ -1,4 +1,4 @@
-export declare const rootDir: () => string;
+export declare const cwd: () => string;
 export declare const regExpTemplate: RegExp;
 export declare const regExpFilePlaceholders: RegExp;
 export declare const strings: {

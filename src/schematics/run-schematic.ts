@@ -1,11 +1,11 @@
 
 import { Tree } from "../tree"
-import { Collection, Rule, SchematicContext, Workspace } from "../types"
-import { traverseDir } from "../tree/helpers"
+import { Collection, FileEntry, Rule, Workspace } from "../types"
 import { styler } from "@digitalbranch/styler";
-import { existsSync, mkdirSync, resolvePath, writeFileSync } from "../fs";
-import { rootDir } from "../constants";
+import { resolvePath } from "../fs";
+import { cwd } from "../constants";
 import { HostTree } from "../tree/host-tree";
+import { SchematicContext } from "./schematic-context";
 
 type RunSchematicContext = {
   factoryName: string,
@@ -17,45 +17,32 @@ type RunSchematicContext = {
   workspace: Workspace
 }
 
-export function runSchematic(schematic: Rule, { factoryRoot, dryRun, debug, workspace }: RunSchematicContext): void
+function createMessage(event: 'CREATED' | 'UPDATED', entry: FileEntry): string
 {
-  const root = rootDir()
+  return `${styler.green.bold(event)} ${entry.path} ${styler.gray(`(${entry.contents.byteLength} bytes)`)}`
+}
 
-  const context: SchematicContext = { dryRun, debug }
-
+export async function runSchematic(schematic: Rule, { factoryRoot, dryRun, debug, workspace }: RunSchematicContext): Promise<void>
+{
+  const workingDirectory = cwd()
+  const context = new SchematicContext(dryRun, debug)
   const hostTree = new HostTree(context, resolvePath(workspace.root))
-
   const rootTree = new Tree(context, undefined, hostTree)
 
   process.chdir(factoryRoot)
 
   const tree = schematic(rootTree, context) as Tree
 
-  if (dryRun) console.log(`${styler.cyan.bold('DRY-RUN')} 🚀`)
+  process.chdir(workingDirectory)
 
-  process.chdir(root)
+  tree.on('create',entry => console.log(createMessage('CREATED', entry)))
+  tree.on('update',entry => console.log(createMessage('UPDATED', entry)))
 
-  let hasModifications = false;
+  const hasModifications = tree.commit()
 
-  traverseDir(tree.root, (entry) => {
-    const path = resolvePath(workspace.root, entry.path)
-
-    if(entry.type === 'dir' && !dryRun && !existsSync(path)) mkdirSync(path)
-
-    else if(entry.type === 'file') {
-      const fileExists = existsSync(path)
-
-      // @ts-ignore
-      if (!dryRun && entry.modified) writeFileSync(path, entry.contents)
-
-      // @ts-ignore
-      if(entry.modified) {
-        hasModifications = true
-
-        console.log(`${styler.green(fileExists ? 'UPDATED' : 'CREATED')} ${path} (${entry.contents.byteLength} bytes)`)
-      }
-    }
-  })
+  if (dryRun) console.log(`${styler.cyan.bold('DRY-RUN')} 🚀 No files written to disk.`)
 
   if (!hasModifications) console.log(`${styler.bold.magenta('Nothing')} to be ${styler.bold.magenta('done')} 🎉`)
+
+  if (!dryRun) await context.runTasks()
 }

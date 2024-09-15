@@ -1,0 +1,1 @@
+{"version":3,"file":"schematic-context.d.ts","sourceRoot":"","sources":["../../src/schematics/schematic-context.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,OAAO,CAAA;AAErC,qBAAa,gBAAgB;IAGf,QAAQ,CAAC,MAAM,EAAE,OAAO;IAAE,QAAQ,CAAC,KAAK,EAAE,OAAO;IAF7D,OAAO,CAAC,KAAK,CAAsB;gBAEd,MAAM,EAAE,OAAO,EAAW,KAAK,EAAE,OAAO;IAE7D,OAAO,CAAC,IAAI,EAAE,aAAa;IAIrB,QAAQ;CAKf"}
